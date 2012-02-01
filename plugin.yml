@@ -1,0 +1,16 @@
+name: InfiniteClaims
+main: sekonda.bukkit.InfiniteClaims.Main
+version: 2.0
+commands:
+  myplot:
+    description: Returns you to your plot.
+    aliases: [plothome]
+    usage: Syntax error! Simply type /<command> to return to your plot.
+  clearplot:
+    description: This returns your plot back to the way it was originally.
+    aliases: [emptyplot]
+    usage: Syntax error! Simply type /<command> revert your plot back to the way it was originally. 
+  getplot:
+    description: This will give you a plot if you don't already have one.
+    aliases: [newplot]
+    usage: Syntax error! Simply type /<command> to get your very own plot.
