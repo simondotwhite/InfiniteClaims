@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="/Users/simon/Dropbox/Bukkit/craftbukkit.jar"/>
+	<classpathentry kind="lib" path="/Users/simon/Dropbox/Bukkit/InfinitePlots.jar"/>
+	<classpathentry kind="lib" path="/Users/simon/Dropbox/Bukkit/WorldEdit.jar"/>
+	<classpathentry kind="lib" path="/Users/simon/Dropbox/Bukkit/WorldGuard.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
