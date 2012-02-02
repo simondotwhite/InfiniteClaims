@@ -1,5 +1,6 @@
 package sekonda.bukkit.InfiniteClaims;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -75,6 +76,42 @@ public class Main extends JavaPlugin implements Listener {
 			this.log.info(pluginPrefix + msg); 
 		} else if (type == "normal"){
 			this.log.info(pluginPrefix + msg);
+		}
+	}
+	
+	public void getCommands() {
+		FileConfiguration config = this.getConfig();
+		new File(getDataFolder() + "config.yml");
+		try {
+			//Extended Logs
+			if(!config.contains("extendedLog")) {
+				config.set("extendedLog", false);
+			}
+			//Plot Config
+			if(!config.contains("plots.X-axis")) {
+				config.set("plots.X-axis", 4);
+			}
+			if(!config.contains("plots.Z-axis")) {
+				config.set("plots.Z-axis", 4);
+			}
+			if(!config.contains("plots.height")) {
+				config.set("plots.height", 20);
+			}
+			//Sign Config
+			if(!config.contains("signs.enabled")) {
+				config.set("signs.enabled", true);
+			}
+			if(!config.contains("signs.placement")) {
+				config.set("signs.placement", 0);
+			}
+			if(!config.contains("signs.prefix")) {
+				config.set("signs.prefix", "Plot Owner:");
+			}
+			//Save Config
+			saveConfig();
+			
+		} catch(Exception e1){
+			e1.printStackTrace();
 		}
 	}
 }
