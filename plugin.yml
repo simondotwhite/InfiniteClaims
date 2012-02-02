@@ -1,5 +1,7 @@
 name: InfiniteClaims
 main: sekonda.bukkit.InfiniteClaims.Main
+author: Sekonda / Toffer
+description: InfiniteClaims is a plugin designed for the InfinitePlots world generator to manage the plot allocation via WorldGuard. Originally coded by Toffer, rebuilt by Sekonda.
 version: 2.0
 commands:
   myplot:
@@ -14,3 +16,4 @@ commands:
     description: This will give you a plot if you don't already have one.
     aliases: [newplot]
     usage: Syntax error! Simply type /<command> to get your very own plot.
+depend: [InfinitePlots, WorldGuard]
