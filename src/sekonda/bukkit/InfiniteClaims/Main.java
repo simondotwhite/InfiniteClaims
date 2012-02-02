@@ -21,7 +21,39 @@ public class Main extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable(){
 		
-		/* Pulling Config info to go here */
+		FileConfiguration config = this.getConfig();
+		//Try config, if not create one with the following values. 
+		new File(getDataFolder() + "config.yml");
+		try {
+			//Extended Logs
+			if(!config.contains("extendedLog")) {
+				config.set("extendedLog", false);
+			}
+			//Plot Config
+			if(!config.contains("plots.X-axis")) {
+				config.set("plots.X-axis", 4);
+			}
+			if(!config.contains("plots.Z-axis")) {
+				config.set("plots.Z-axis", 4);
+			}
+			if(!config.contains("plots.height")) {
+				config.set("plots.height", 20);
+			}
+			//Sign Config
+			if(!config.contains("signs.enabled")) {
+				config.set("signs.enabled", true);
+			}
+			if(!config.contains("signs.placement")) {
+				config.set("signs.placement", 0);
+			}
+			if(!config.contains("signs.prefix")) {
+				config.set("signs.prefix", "Plot Owner:");
+			}
+			//Save Config
+			saveConfig();
+		} catch(Exception e1){
+			e1.printStackTrace();
+		}
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		
@@ -42,7 +74,16 @@ public class Main extends JavaPlugin implements Listener {
 	//Check player commands
 	@EventHandler
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-    	
+		
+		//getconfig for use in commands
+		FileConfiguration config = this.getConfig();
+		final int Xaxis = config.getInt("plot.X-axis");
+		final int Zaxix = config.getInt("plots.Z-axis");
+		final int plotHeight = config.getInt("plot.height"); 
+    	final boolean signsEnabled = config.getBoolean("signs.enabled");
+    	final int signsPlacement = config.getInt("signs.placement");
+    	final String signsPrefix = config.getString("signs.prefix");
+		
 		//check for myplot / plothome
 		if(cmd.getName().equalsIgnoreCase("myplot") || cmd.getName().equalsIgnoreCase("plothome")){ 
     		sender.sendMessage("You issues the "+ChatColor.RED + "myplot/plothome" + ChatColor.WHITE + " command correctly.");
@@ -79,39 +120,4 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 	
-	public void getCommands() {
-		FileConfiguration config = this.getConfig();
-		new File(getDataFolder() + "config.yml");
-		try {
-			//Extended Logs
-			if(!config.contains("extendedLog")) {
-				config.set("extendedLog", false);
-			}
-			//Plot Config
-			if(!config.contains("plots.X-axis")) {
-				config.set("plots.X-axis", 4);
-			}
-			if(!config.contains("plots.Z-axis")) {
-				config.set("plots.Z-axis", 4);
-			}
-			if(!config.contains("plots.height")) {
-				config.set("plots.height", 20);
-			}
-			//Sign Config
-			if(!config.contains("signs.enabled")) {
-				config.set("signs.enabled", true);
-			}
-			if(!config.contains("signs.placement")) {
-				config.set("signs.placement", 0);
-			}
-			if(!config.contains("signs.prefix")) {
-				config.set("signs.prefix", "Plot Owner:");
-			}
-			//Save Config
-			saveConfig();
-			
-		} catch(Exception e1){
-			e1.printStackTrace();
-		}
-	}
 }
