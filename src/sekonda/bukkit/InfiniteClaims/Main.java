@@ -49,6 +49,9 @@ public class Main extends JavaPlugin implements Listener {
 				config.set("extendedLog", false);
 			}
 			//Plot Config
+			if(!config.contains("plots.worldname")) {
+				config.set("plots.worldname", "world");
+			}
 			if(!config.contains("plots.X-axis")) {
 				config.set("plots.X-axis", 4);
 			}
