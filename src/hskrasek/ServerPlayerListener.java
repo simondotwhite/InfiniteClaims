@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -32,10 +33,10 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 public class ServerPlayerListener implements Listener
 {
 	InfiniteClaims plugin;
-	
+	Logger logger = Logger.getLogger("Minecraft");
 	public ServerPlayerListener(InfiniteClaims instance)
 	{
-		instance.logger.info("Listener Registered");
+		this.logger.info("Listener has been registered.");
 		plugin = instance;
 	}
 	
@@ -46,7 +47,7 @@ public class ServerPlayerListener implements Listener
 		LocalPlayer lp = plugin.getWorldGuard().wrapPlayer(p);
 		World w = p.getWorld();
 		ChunkGenerator cg = w.getGenerator();
-		plugin.logger.info("Player: " + p + " Changed worlds");
+		this.logger.info("Player: " + p + " Changed worlds");
 		if(cg instanceof InfinitePlotsGenerator != false)
 		{
 			int plotSize = ((InfinitePlotsGenerator)cg).getPlotSize();
@@ -257,4 +258,7 @@ public class ServerPlayerListener implements Listener
         block.setData(blockFaceSign.getData(), true);
         blockState.update(true);
     }
+	
 }
+
+

@@ -12,8 +12,9 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class InfiniteClaims extends JavaPlugin
 {
-	public final Logger logger = Logger.getLogger("Minecraft");
-
+	Logger log = Logger.getLogger("Minecraft");	
+	InfiniteClaims plugin; 
+	
 	public ServerPlayerListener playerListener = null;
 	public int roadOffsetX = 4;
 	public int roadOffsetZ = 4;
@@ -27,7 +28,6 @@ public class InfiniteClaims extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
-		PluginDescriptionFile pdf = this.getDescription();
 		FileConfiguration configFile = this.getConfig();
 		
 		configFile.set("RoadOffsetXAxis", roadOffsetX);
@@ -38,10 +38,12 @@ public class InfiniteClaims extends JavaPlugin
 		configFile.set("enableHome", enableHome); 
 		configFile.set("setHome", setHome);
 		configFile.set("goHome", goHome);
-
+		//Checks for changes in the config
+		this.reloadConfig();
+		//Saves the config
 		this.saveConfig();
 		
-		this.logger.info(pdf.getName() + " is now disabled.");
+		
 	}
 	
 	@Override
@@ -49,7 +51,6 @@ public class InfiniteClaims extends JavaPlugin
 	{
 		//PluginManager pm = getServer().getPluginManager();
 		FileConfiguration configFile = this.getConfig();
-		PluginDescriptionFile pdf = this.getDescription();
 		
 		roadOffsetX = configFile.getInt("RoadOffsetXAxis", 4);
 		roadOffsetZ = configFile.getInt("RoadOffsetZAxis", 4);
@@ -67,7 +68,7 @@ public class InfiniteClaims extends JavaPlugin
 		getServer().getPluginManager().registerEvents(playerListener, this);
 //		pm.registerEvent(Event.Type.PLAYER_CHANGED_WORLD, this.playerListener, Event.Priority.Normal, this);
 		
-		this.logger.info(pdf.getName() + " is enabled.  Version: " + pdf.getVersion());	
+		logger("","");
 	}
 	
 	public WorldGuardPlugin getWorldGuard()
@@ -78,7 +79,7 @@ public class InfiniteClaims extends JavaPlugin
 	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
 	        return null; // Maybe you want throw an exception instead
 	    }
-	    logger.info("WorldGuard Enabled");
+	    logger("WorldGuard is Enabled","extended");
 	    return (WorldGuardPlugin) plugin;
 	}
 	
@@ -90,7 +91,25 @@ public class InfiniteClaims extends JavaPlugin
 		if(plugin == null || !(plugin instanceof WorldEditPlugin)) {
 			return null;
 		}
-		logger.info("WorldEdit enabled");
+		logger("WorldEdit is Enabled","extended");
 		return (WorldEditPlugin)plugin;
+
+	}
+	
+	public void logger(String msg, String type) {		
+		//Pull config for extendedLogs
+		FileConfiguration config = plugin.getConfig();
+		final boolean extendedLog = config.getBoolean("extendedLog");
+		//Create Constant Prefix
+		PluginDescriptionFile pdf = plugin.getDescription();
+		final String pluginPrefix = "[" + pdf.getName() + "] ";
+
+		//Checks for extendedLogging
+		if(type == "extended" && extendedLog == true) {
+			this.log.info(pluginPrefix + msg); 
+		} else if (type == "normal"){
+			this.log.info(pluginPrefix + msg);
+
+		}
 	}
 }
