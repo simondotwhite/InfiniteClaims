@@ -1,5 +1,6 @@
 package hskrasek;
 
+import java.io.File;
 import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -28,47 +29,76 @@ public class InfiniteClaims extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
-		FileConfiguration configFile = this.getConfig();
-		
-		configFile.set("RoadOffsetXAxis", roadOffsetX);
-		configFile.set("RoadOffsetZAxis", roadOffsetZ);
-		configFile.set("PlotHeight", plotHeight);
-		configFile.set("OwnerSignPrefix", ownerSignPrefix);
-		configFile.set("SignPlacementMethod", signPlacementMethod);
-		configFile.set("enableHome", enableHome); 
-		configFile.set("setHome", setHome);
-		configFile.set("goHome", goHome);
-		//Checks for changes in the config
 		this.reloadConfig();
 		//Saves the config
 		this.saveConfig();
+		logger("config file has been saved.", "extended");
 		
-		
+		logger("has been disabled.","normal");
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		//PluginManager pm = getServer().getPluginManager();
-		FileConfiguration configFile = this.getConfig();
-		
-		roadOffsetX = configFile.getInt("RoadOffsetXAxis", 4);
-		roadOffsetZ = configFile.getInt("RoadOffsetZAxis", 4);
-		plotHeight = configFile.getInt("PlotHeight", 20);
-		ownerSignPrefix = configFile.getString("OwnerSignPrefix");
-		signPlacementMethod = configFile.getInt("SignPlacementMethod", 0);
+		//PluginManager pm = getServer().getPluginManager();		
+		FileConfiguration config = this.getConfig();
+		new File(getDataFolder() + "config.yml");
+		try {
+			//Extended Logs
+			if(!config.contains("extendedLog")) {
+				config.set("extendedLog", false);
+			}
+			//Plot Config
+			if(!config.contains("plots.X-axis")) {
+				config.set("plots.X-axis", 4);
+			}
+			if(!config.contains("plots.Z-axis")) {
+				config.set("plots.Z-axis", 4);
+			}
+			if(!config.contains("plots.height")) {
+				config.set("plots.height", 20);
+			}
+			//Sign Config
+			if(!config.contains("signs.enabled")) {
+				config.set("signs.enabled", true);
+			}
+			if(!config.contains("signs.placement")) {
+				config.set("signs.placement", 0);
+			}
+			if(!config.contains("signs.prefix")) {
+				config.set("signs.prefix", "Plot Owner:");
+			}
+			//Sign Config
+			if(!config.contains("homes.enabled")) {
+				config.set("homes.enabled", true);
+			}
+			if(!config.contains("signs.sethome")) {
+				config.set("home.sethome", "sethome");
+			}
+			if(!config.contains("home.gohome")) {
+				config.set("home.gohome", "home");
+			}
+			//Save Config
+			saveConfig();
+		} catch(Exception e1){
+			e1.printStackTrace();
+		}
+
+		roadOffsetX = config.getInt("plots.X-axis");
+		roadOffsetZ = config.getInt("plots.Y-axis");
+		plotHeight = config.getInt("plots.height");
+		ownerSignPrefix = config.getString("signs.prefix");
+		signPlacementMethod = config.getInt("signs.placement");
 		//home related
-		enableHome = configFile.getBoolean("enableHome");
-		setHome = configFile.getString("setHome", setHome);
-		goHome = configFile.getString("goHome", goHome);
+		enableHome = config.getBoolean("homes.enabled");
+		setHome = config.getString("homes.sethome");
+		goHome = config.getString("homes.gohome");
 		
-		this.saveConfig();
-				
 		playerListener = new ServerPlayerListener(this);		
 		getServer().getPluginManager().registerEvents(playerListener, this);
 //		pm.registerEvent(Event.Type.PLAYER_CHANGED_WORLD, this.playerListener, Event.Priority.Normal, this);
 		
-		logger("","");
+		logger("has been enabled.","normal");
 	}
 	
 	public WorldGuardPlugin getWorldGuard()
