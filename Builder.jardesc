@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
     <jar path="/Users/simon/Desktop/MCServer/plugins/InfiniteClaims.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/InfiniteClaims/Builder.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="true" useSourceFolders="false"/>
+    <options buildIfNeeded="true" compress="false" descriptionLocation="/InfiniteClaims-Rebuild/Builder.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="true" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
@@ -11,7 +11,7 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <file path="/InfiniteClaims/plugin.yml"/>
-        <javaElement handleIdentifier="=InfiniteClaims/src"/>
+        <javaElement handleIdentifier="=InfiniteClaims-Rebuild/src"/>
+        <file path="/InfiniteClaims-Rebuild/plugin.yml"/>
     </selectedElements>
 </jardesc>
